@@ -188,10 +188,8 @@ namespace RealStateApp.Core.Application.Services
 
                 return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-
                 return null;
 
 
@@ -342,10 +340,9 @@ namespace RealStateApp.Core.Application.Services
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new List<AgentDataDto>();
-
             }
 
         }
@@ -408,10 +405,9 @@ namespace RealStateApp.Core.Application.Services
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new List<DataPropertyDto>();
-
             }
         }
 
@@ -441,13 +437,10 @@ namespace RealStateApp.Core.Application.Services
                 }
 
                 return FilterAgent;
-
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 return new List<AgentDataDto>();
-
             }
         }
     }

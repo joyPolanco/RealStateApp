@@ -17,17 +17,14 @@ using System.Threading.Tasks;
 namespace RealStateApp.Infraestructure.Identity.Services
 {
     public class IdentityUserService : IUserService
-
     {
-        private readonly IdentityContext _context;
         private UserManager<AppUser> _userManager;
         private readonly IdentityContext _identityContext;
+        
         public IdentityUserService(UserManager<AppUser> userManager, IdentityContext identityDbContext, IHttpContextAccessor context)
         {
             _userManager = userManager;
             _identityContext = identityDbContext;
-            _identityContext = identityDbContext;
-
         }
 
         public virtual async Task<UserResponseDto> DeleteAsync(string id)
@@ -75,12 +72,13 @@ namespace RealStateApp.Infraestructure.Identity.Services
 
             return false;
         }
+
         public async Task<UserDto?> GetByDni(string dni)
         {
             var cleanDocumentId = dni?.Trim().Replace("-", "").Replace(" ", "") ?? "";
 
             var user = await _userManager.Users
-                .Where(r => r.Dni.Replace("-", "").Replace(" ", "") == cleanDocumentId)
+                .Where(r => r.Dni != null && r.Dni.Replace("-", "").Replace(" ", "") == cleanDocumentId)
                 .FirstOrDefaultAsync();
 
             if (user == null)
@@ -88,8 +86,8 @@ namespace RealStateApp.Infraestructure.Identity.Services
                 return null;
             }
 
-            var rolesList = await _userManager.GetRolesAsync(user);
-            var role = EnumMapper<AppRoles>.FromString(rolesList.First());
+            var rolesList = await _userManager.GetRolesAsync(user!);
+            var role = EnumMapper<AppRoles>.FromString(rolesList.First()!);
 
             var userDto = new UserDto()
             {
@@ -98,7 +96,7 @@ namespace RealStateApp.Infraestructure.Identity.Services
                 LastName = user.LastName,
                 FirstName = user.FirstName,
                 UserName = user.UserName ?? "",
-                Dni = user.Dni!,
+                Dni = user.Dni,
                 IsVerified = user.EmailConfirmed,
                 IsActive = user.IsActive,
                 Role = EnumMapper<AppRoles>.ToString(role)
@@ -106,7 +104,6 @@ namespace RealStateApp.Infraestructure.Identity.Services
 
             return userDto;
         }
-
 
         public async Task<IList<AgentDto>> GetUsersAgentOnly(Dictionary<string, int> dictionary)
         {
@@ -136,7 +133,7 @@ namespace RealStateApp.Infraestructure.Identity.Services
                 .Select(user => new UserDto
                 {
                     Id = user.Id,
-                    Dni = user.Dni!,
+                    Dni = user.Dni,
                     Email = user.Email!,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
@@ -236,7 +233,7 @@ namespace RealStateApp.Infraestructure.Identity.Services
                 LastName = user.LastName,
                 FirstName = user.FirstName,
                 UserName = user.UserName ?? "",
-                Dni = user.Dni!,
+                Dni = user.Dni,
                 IsVerified = user.EmailConfirmed,
                 IsActive = user.IsActive,
                 Role = EnumMapper<AppRoles>.ToString(role)

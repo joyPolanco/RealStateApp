@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace RealStateApp.Unit.Tests.Features.Agents.Queries
 {
     using AutoMapper;
@@ -13,7 +8,6 @@ namespace RealStateApp.Unit.Tests.Features.Agents.Queries
     using RealStateApp.Core.Application.Features.Agents.Queries.GetById;
     using RealStateApp.Core.Application.Interfaces;
     using RealStateApp.Core.Domain.Interfaces;
-    using RealStateApp.Infraestructure.Identity.Entities;
     using System.Threading;
     using System.Threading.Tasks;
     using Xunit;
@@ -37,17 +31,18 @@ namespace RealStateApp.Unit.Tests.Features.Agents.Queries
                 _mapperMock.Object
             );
         }
+
         [Fact]
         public async Task Handle_ShouldReturnAgentDto_WhenAgentExists()
         {
             // Arrange
             var agentId = Guid.NewGuid().ToString();
 
-            var dto = new UserDto
+            var userDto = new UserDto
             {
                 Id = agentId,
-                UserName = "UserName",
-                Dni = "2023450933",
+                UserName = "johndoe",
+                Dni = "12345678",
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john@domain.com",
@@ -59,19 +54,19 @@ namespace RealStateApp.Unit.Tests.Features.Agents.Queries
                 Id = agentId,
                 FirstName = "John",
                 LastName = "Doe",
-                Email = "john@domain.com"
+                Email = "john@domain.com",
             };
 
             _userServiceMock
                 .Setup(s => s.GetById(agentId))
-                .ReturnsAsync(dto);
+                .ReturnsAsync(userDto);
 
             _propertyRepositoryMock
                 .Setup(r => r.GetAgentPropertiesCount(agentId))
                 .ReturnsAsync(5);
 
             _mapperMock
-                .Setup(m => m.Map<AgentDto>(It.IsAny<UserDto>()))
+                .Setup(m => m.Map<AgentDto>(userDto))
                 .Returns(mappedDto);
 
             var query = new GetAgentByIdQuery { Id = agentId };
@@ -86,11 +81,7 @@ namespace RealStateApp.Unit.Tests.Features.Agents.Queries
 
             _userServiceMock.Verify(s => s.GetById(agentId), Times.Once);
             _propertyRepositoryMock.Verify(r => r.GetAgentPropertiesCount(agentId), Times.Once);
-
-            _mapperMock.Verify(
-                m => m.Map<AgentDto>(It.IsAny<UserDto>()),
-                Times.Once
-            );
+            _mapperMock.Verify(m => m.Map<AgentDto>(userDto), Times.Once);
         }
 
 
@@ -102,7 +93,11 @@ namespace RealStateApp.Unit.Tests.Features.Agents.Queries
 
             _userServiceMock
                 .Setup(s => s.GetById(agentId))
-                .ReturnsAsync((UserDto)null);
+                .ReturnsAsync((UserDto)null); // Retorna null para simular agente no encontrado
+
+            _propertyRepositoryMock
+                .Setup(r => r.GetAgentPropertiesCount(agentId))
+                .ReturnsAsync(0);
 
             var query = new GetAgentByIdQuery { Id = agentId };
 
@@ -111,9 +106,9 @@ namespace RealStateApp.Unit.Tests.Features.Agents.Queries
                 _handler.Handle(query, CancellationToken.None)
             );
 
-            Assert.Equal("Agent not found with this Id", ex.Message);
+            Assert.Equal("Agent not found with Id", ex.Message);
             _userServiceMock.Verify(s => s.GetById(agentId), Times.Once);
         }
     }
 
-    }
+}

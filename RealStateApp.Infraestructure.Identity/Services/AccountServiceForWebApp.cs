@@ -151,7 +151,7 @@ namespace RealStateApp.Infraestructure.Identity.Services
         {
 
             var user = await _userManager.Users
-                .Where(r => r.UserName.Replace("-", "").Replace(" ", "") == name)
+                .Where(r => r.UserName!.Replace("-", "").Replace(" ", "") == name)
                 .FirstOrDefaultAsync();
 
             if (user == null)
@@ -169,7 +169,7 @@ namespace RealStateApp.Infraestructure.Identity.Services
                 LastName = user.LastName,
                 FirstName = user.FirstName,
                 UserName = user.UserName ?? "",
-                Dni = user.Dni!,
+                Dni = user.Dni,
                 IsVerified = user.EmailConfirmed,
                 IsActive = user.IsActive,
                 Role = EnumMapper<AppRoles>.ToString(role)
@@ -212,7 +212,7 @@ namespace RealStateApp.Infraestructure.Identity.Services
                     LastName = user.LastName,
                     FirstName = user.FirstName,
                     UserName = user.UserName ?? "",
-                    Dni = user.Dni ?? "",
+                    Dni = user.Dni,
                     IsVerified = user.EmailConfirmed,
                     IsActive = user.IsActive,
                     Photo = user.Photo,
@@ -247,7 +247,7 @@ namespace RealStateApp.Infraestructure.Identity.Services
                 LastName = user.LastName,
                 FirstName = user.FirstName,
                 UserName = user.UserName ?? "",
-                Dni = user.Dni!,
+                Dni = user.Dni,
                 IsVerified = user.EmailConfirmed,
                 IsActive = user.IsActive,
                 Photo = user.Photo ?? "",

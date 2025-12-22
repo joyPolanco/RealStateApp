@@ -3,11 +3,8 @@
 
 @{
     var defaultProfileImage = "https://i.pinimg.com/originals/aa/13/91/aa13915873372c1bb99ff81fbc17f611.jpg";
-    var hasProfileImage = true;
- 
     var user = await UserManager.GetUserAsync(User);
     var profileImage = user?.Photo ?? defaultProfileImage;
-    
 }
 
 

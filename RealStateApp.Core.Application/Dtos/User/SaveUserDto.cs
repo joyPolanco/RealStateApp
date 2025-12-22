@@ -8,7 +8,7 @@
         public required string Password { get; set; }
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
-        public required string Dni { get; set; }
+        public string Dni { get; set; } = string.Empty;
         public string? Photo { get; set; }
         public string? Phone { get; set; }
         public string? ConfirmPassword { get; set; }

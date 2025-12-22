@@ -25,7 +25,7 @@ namespace RealStateApp.Core.Application.Services
 
 
 
-        public override async Task<CreateOfferDto?> AddAsync(CreateOfferDto entityDto)
+        public override async Task<CreateOfferDto?> AddAsync(CreateOfferDto? entityDto)
         {
             try
             {
@@ -70,10 +70,8 @@ namespace RealStateApp.Core.Application.Services
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-
                 return new List<DataListOfferDto>();
             
             
@@ -124,14 +122,10 @@ namespace RealStateApp.Core.Application.Services
 
 
                 throw new Exception();
-
             }
             catch (Exception ex)
             {
-
-
                 throw new Exception(ex.Message);
-
             }
         }
 

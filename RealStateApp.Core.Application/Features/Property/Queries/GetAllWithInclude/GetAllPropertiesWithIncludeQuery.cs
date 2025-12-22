@@ -8,9 +8,6 @@ using RealStateApp.Core.Domain.Interfaces;
 
 namespace RealStateApp.Core.Application.Features.Property.Queries.GetAllWithInclude
 {
-    /// <summary>
-    /// Query para obtener todas las propiedades con sus relaciones incluidas
-    /// </summary>
     public class GetAllPropertiesWithIncludeQuery : IRequest<IList<PropertyApiDto>>
     {
     }

@@ -180,6 +180,13 @@ namespace RealStateApp.Areas.Agents.Controllers
                 return View(vm);
             }
 
+            if (!vm.Id.HasValue)
+            {
+                ModelState.AddModelError("", "El Id de la propiedad es requerido");
+                await LoadSelectLists();
+                return View(vm);
+            }
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {

@@ -43,10 +43,15 @@ namespace RealStateApp.Core.Application.Mappings.EntitiesAndDtos
 
             // Mapping para la API según especificación del documento
             CreateMap<Property, PropertyApiDto>()
-                .ForMember(dest => dest.PropertyType, opt => opt.MapFrom(src => src.PropertyType.Name))
-                .ForMember(dest => dest.SaleType, opt => opt.MapFrom(src => src.SaleType.Name))
+                .ForMember(dest => dest.PropertyType, opt => opt.MapFrom(src => src.PropertyType != null ? src.PropertyType.Name : "Unknown"))
+                .ForMember(dest => dest.SaleType, opt => opt.MapFrom(src => src.SaleType != null ? src.SaleType.Name : "Unknown"))
                 .ForMember(dest => dest.Improvements, opt => opt.MapFrom(src =>
-                    src.PropertyImprovements.Select(pi => pi.Improvement.Name).ToList()))
+                    src.PropertyImprovements != null && src.PropertyImprovements.Any()
+                        ? src.PropertyImprovements
+                            .Where(pi => pi.Improvement != null)
+                            .Select(pi => pi.Improvement.Name)
+                            .ToList()
+                        : new List<string>()))
                 .ForMember(dest => dest.AgentName, opt => opt.Ignore())
                 .ForMember(dest => dest.AgentId, opt => opt.MapFrom(src => src.AgentId));
 

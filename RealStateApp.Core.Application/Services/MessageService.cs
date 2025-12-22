@@ -44,13 +44,10 @@ namespace RealStateApp.Core.Application.Services
                }).ToListAsync();
 
                 return messages;
-
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 return new List<DataConversactionDto>();
-
             }
         }
 
@@ -73,14 +70,10 @@ namespace RealStateApp.Core.Application.Services
 
 
                 throw new Exception();
-
             }
             catch (Exception ex)
             {
-
-
                 throw new Exception(ex.Message);
-
             }
         }
     }

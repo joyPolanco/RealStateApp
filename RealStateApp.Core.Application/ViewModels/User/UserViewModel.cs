@@ -20,7 +20,7 @@ namespace RealStateApp.Core.Application.ViewModels.User
 
         public required string LastName { get; set; }
 
-        public required string Dni { get; set; }
+        public string? Dni { get; set; }
 
         public required string Role { get; set; }
 

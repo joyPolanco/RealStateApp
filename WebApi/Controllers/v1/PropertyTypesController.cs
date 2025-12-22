@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RealStateApp.Core.Application.Features.PropertyType.Commands.Create;
 using RealStateApp.Core.Application.Features.PropertyType.Commands.Delete;
@@ -7,7 +6,6 @@ using RealStateApp.Core.Application.Features.PropertyType.Commands.Edit;
 using RealStateApp.Core.Application.Features.PropertyType.Queries.GetAllWithInclude;
 using RealStateApp.Core.Application.Features.PropertyType.Queries.GetById;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Net.Mime;
 
 namespace RealStateWebApi.Controllers.v1
 {

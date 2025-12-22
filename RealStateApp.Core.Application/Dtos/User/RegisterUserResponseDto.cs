@@ -17,7 +17,7 @@ namespace RealStateApp.Core.Application.Dtos.User
 
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
-        public required string Dni { get; set; }
+        public string? Dni { get; set; }
         public List<string>? Roles { get; set; }
     }
 }

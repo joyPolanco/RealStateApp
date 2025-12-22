@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using RealStateApp.Core.Application.Exceptions;
 using RealStateApp.Core.Application.Features.Improvement.Commands.CreateImprovement;
-using RealStateApp.Core.Application.Features.Property.Commands.CreateProperty;
-using RealStateApp.Core.Application.Features.SaleType.Commands.CreateSaleType;
 using RealStateApp.Core.Domain.Interfaces;
 using RealStateApp.Infraestructure.Persistence.Contexts;
 using RealStateApp.Infraestructure.Persistence.Repositories;

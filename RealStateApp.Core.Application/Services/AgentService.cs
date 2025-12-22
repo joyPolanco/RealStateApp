@@ -132,7 +132,10 @@ namespace RealStateApp.Core.Application.Services
 
         public async Task UpdateProperty(SavePropertyDto dto)
         {
-            var property = await _propertyRepository.GetByIdAsync(dto.Id!.Value);
+            if (!dto.Id.HasValue)
+                throw new Exception("El Id de la propiedad es requerido para actualizar");
+            
+            var property = await _propertyRepository.GetByIdAsync(dto.Id.Value);
             
             if (property == null)
                 throw new Exception("Propiedad no encontrada");

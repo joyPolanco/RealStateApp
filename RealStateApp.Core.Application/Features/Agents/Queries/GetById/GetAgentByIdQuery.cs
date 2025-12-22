@@ -78,7 +78,7 @@ namespace RealStateApp.Core.Application.Features.Agents.Queries.GetById
                 throw new ApiException($"Agent not found with this Id",(int)HttpStatusCode.NotFound);
 
             if (userBase == null)
-                throw new ApiException("Agent not found with this Id");
+                throw new ApiException("Agent not found with Id");
 
 
             // Obtener el conteo de propiedades del agente

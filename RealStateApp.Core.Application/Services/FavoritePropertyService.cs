@@ -33,11 +33,12 @@ namespace RealStateApp.Core.Application.Services
 
 
 
-        public override async Task<CreateFavoritePropertyDto?> AddAsync(CreateFavoritePropertyDto entityDto)
+        public override async Task<CreateFavoritePropertyDto?> AddAsync(CreateFavoritePropertyDto? entityDto)
         {
             try
             {
-
+                if (entityDto == null)
+                    return null;
 
                 var FavoriteProperty = await favoritePropertyRepository.GetFavoriteByIdClientAndByIdProperty(entityDto.ClientId, entityDto.PropertyId);
 
@@ -53,13 +54,10 @@ namespace RealStateApp.Core.Application.Services
                 }
 
                 return null;
-
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 return default;
-
             }
         }
 
@@ -86,14 +84,10 @@ namespace RealStateApp.Core.Application.Services
 
 
                 throw new Exception();
-
             }
             catch (Exception ex)
             {
-
-
                 throw new Exception(ex.Message);
-
             }
         }
 
@@ -160,12 +154,9 @@ namespace RealStateApp.Core.Application.Services
                 if(list.Count < 0 || list == null) {  return new List<DataPropertyDto>(); }
 
                 return list;
-           
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-
                 return new List<DataPropertyDto>();
             
             

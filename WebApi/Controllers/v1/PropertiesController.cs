@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 using RealStateApp.Core.Application.Features.Property.Queries.GetAll;
 using RealStateApp.Core.Application.Features.Property.Queries.GetAllWithInclude;
 using RealStateApp.Core.Application.Features.Property.Queries.GetByCode;
@@ -10,20 +9,14 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace RealStateWebApi.Controllers.v1
 {
     /// <summary>
-    /// Controlador de Propiedades para la API
-    /// Versión: 1.0
+    /// API Propiedades V 1.0
+    /// Controlador de consulta de Propiedades
     /// </summary>
     public class PropertiesController : BaseApiController
     {
-        /// <summary>
-        /// Obtiene todas las propiedades del sistema
-        /// </summary>
-        /// <returns>Lista de todas las propiedades</returns>
+
         [HttpGet]
         [Authorize(Roles = "ADMIN,DEVELOPER")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
             Summary = "Obtiene todas las propiedades",
             Description = "Devuelve una lista de todas las propiedades registradas en el sistema."
@@ -39,20 +32,15 @@ namespace RealStateWebApi.Controllers.v1
 
             return Ok(response);
         }
-
-        /// <summary>
-        /// Obtiene todas las propiedades con sus relaciones incluidas
-        /// </summary>
-        /// <returns>Lista de propiedades con PropertyType, SaleType e Improvements</returns>
-        [HttpGet("withinclude")]
+        [HttpGet("with-details")]
         [Authorize(Roles = "ADMIN,DEVELOPER")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
-            Summary = "Obtiene todas las propiedades con relaciones incluidas",
-            Description = "Devuelve una lista de todas las propiedades junto con sus PropertyType, SaleType e Improvements."
-        )]  
+            Summary = "Obtiene todas las propiedades con detalles completos",
+            Description = "Devuelve una lista de todas las propiedades con información detallada (tipo, venta, mejoras)."
+        )]
         public async Task<IActionResult> GetAllWithInclude()
         {
             var response = await Mediator.Send(new GetAllPropertiesWithIncludeQuery());
@@ -65,15 +53,10 @@ namespace RealStateWebApi.Controllers.v1
             return Ok(response);
         }
 
-        /// <summary>
-        /// Obtiene una propiedad por su Id
-        /// </summary>
-        /// <param name="id">Id de la propiedad</param>
-        /// <returns>Datos de la propiedad</returns>
         [HttpGet("{id}")]
         [Authorize(Roles = "ADMIN,DEVELOPER")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
             Summary = "Obtiene una propiedad por Id",
@@ -85,21 +68,16 @@ namespace RealStateWebApi.Controllers.v1
 
             if (response == null)
             {
-                return NoContent();
+                return NotFound(new { message = $"No existe la propiedad con el Id {id}" });
             }
 
             return Ok(response);
         }
 
-        /// <summary>
-        /// Obtiene una propiedad por su Código
-        /// </summary>
-        /// <param name="code">Código de la propiedad (6 caracteres)</param>
-        /// <returns>Datos de la propiedad</returns>
         [HttpGet("code/{code}")]
         [Authorize(Roles = "ADMIN,DEVELOPER")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [SwaggerOperation(
             Summary = "Obtiene una propiedad por Código",
@@ -111,11 +89,11 @@ namespace RealStateWebApi.Controllers.v1
 
             if (response == null)
             {
-                return NoContent();
+                return NotFound(new { message = $"No existe la propiedad con el código {code}" });
             }
-
             return Ok(response);
         }
+
 
     }
 }

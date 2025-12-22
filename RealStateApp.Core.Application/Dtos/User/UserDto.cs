@@ -21,7 +21,7 @@ namespace RealStateApp.Core.Application.Dtos.User
         public required string LastName { get; set; }
         [JsonProperty("cedula")]
 
-        public required string Dni { get; set; }
+        public string? Dni { get; set; }
         [JsonProperty("rol")]
 
         public required string Role { get; set; }

@@ -11,10 +11,6 @@ using RealStateApp.Core.Application.Features.Improvement.Commands.DeleteImprovem
 using RealStateApp.Core.Application.Features.Improvement.Commands.EditImprovement;
 using RealStateApp.Core.Application.Features.Improvement.Queries.GetById;
 using RealStateApp.Core.Application.Features.Login.Commands;
-using RealStateApp.Core.Application.Features.Property.Commands.CreateProperty;
-using RealStateApp.Core.Application.Features.Property.Commands.DeleteProperty;
-using RealStateApp.Core.Application.Features.Property.Commands.EditProperty;
-using RealStateApp.Core.Application.Features.Property.Commands.UpdateProperty;
 using RealStateApp.Core.Application.Features.Property.Queries.GetByCode;
 using RealStateApp.Core.Application.Features.PropertyType.Commands.Create;
 using RealStateApp.Core.Application.Features.PropertyType.Commands.Edit;
@@ -65,7 +61,7 @@ namespace RealStateApp.Core.Application.LayerConfigurations
             //Propertytpe
 
             services.AddValidatorsFromAssembly(typeof(CreatePropertyTypeCommandValidator).Assembly);
-            services.AddValidatorsFromAssembly(typeof(DeletePropertyCommandValidator).Assembly);
+            services.AddValidatorsFromAssembly(typeof(DeletePropertyTypeCommandValidator).Assembly);
             services.AddValidatorsFromAssembly(typeof(EditPropertyTypeCommandValidator).Assembly);
 
             services.AddValidatorsFromAssembly(typeof(GetPropertyTypeByIdQueryValidator).Assembly);
@@ -85,10 +81,6 @@ namespace RealStateApp.Core.Application.LayerConfigurations
 
 
             //Property
-            services.AddValidatorsFromAssembly(typeof(CreatePropertyCommandValidator).Assembly);
-            services.AddValidatorsFromAssembly(typeof(DeletePropertyCommandValidator).Assembly);
-            services.AddValidatorsFromAssembly(typeof(EditPropertyCommandValidator).Assembly);
-            services.AddValidatorsFromAssembly(typeof(UpdatePropertyCommandValidator).Assembly);
             services.AddValidatorsFromAssembly(typeof(GetPropertyTypeByIdQueryValidator).Assembly);
             services.AddValidatorsFromAssembly(typeof(GetPropertyByCodeQueryValidator).Assembly);
 

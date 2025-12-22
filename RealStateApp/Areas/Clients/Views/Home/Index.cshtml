@@ -116,7 +116,7 @@
 
    
     <div id="property-list">
-        @Html.Partial("_PropertyList", new PropertyListViewModel { DataProperties = Model.ListProperty })
+        <partial name="_PropertyList" model="new PropertyListViewModel { DataProperties = Model.ListProperty }" />
     </div>
 
 </main>

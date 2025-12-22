@@ -48,7 +48,7 @@ namespace RealStateApp.Core.Application.Features.Property.Queries.GetById
                 .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
 
             if (property == null)
-                throw new ApiException("El id de la propiedad es inv√°lido",(int)HttpStatusCode.NotFound);
+                throw new ApiException("El id de la propiedad es inv·lido",(int)HttpStatusCode.NotFound);
 
             var dto = _mapper.Map<PropertyApiDto>(property);
             

@@ -19,6 +19,10 @@ namespace RealStateApp.Core.Application.Mappings.DtosAndViewModels
             CreateMap<SaveBasicUserViewModel, SaveUserDto>();
             CreateMap<UserDto, SaveBasicUserViewModel>();
 
+            // Mapeo específico para RegisterViewModel sin Dni
+            CreateMap<RegisterViewModel, SaveUserDto>()
+                .ForMember(dest => dest.Dni, opt => opt.MapFrom(src => "N/A"));
+
             CreateMap<AgentDto, AgentViewModel>();
             CreateMap<UserDto, AgentDataDto>()
                 .ReverseMap();

@@ -38,12 +38,6 @@ namespace RealStateApp.Core.Application.ViewModels.User
         public string UserType { get; set; } = string.Empty; // "CLIENT" o "AGENT"
 
         // Nota: La foto se maneja en el controller directamente desde el formulario
-        
-        [Required(ErrorMessage = "El DNI es requerido")]
-        [StringLength(11, MinimumLength = 11, ErrorMessage = "El DNI debe tener exactamente 11 dígitos")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "El DNI debe contener solo números")]
-        [DataType(DataType.Text)]
-        public string Dni { get; set; } = string.Empty;
 
         public bool HasError { get; set; }
         public string? Error { get; set; }

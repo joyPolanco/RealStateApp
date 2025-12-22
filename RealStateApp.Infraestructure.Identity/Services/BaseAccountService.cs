@@ -29,8 +29,7 @@ namespace RealStateApp.Infraestructure.Identity.Services
                 UserName = string.Empty,
                 Email = string.Empty,
                 FirstName = string.Empty,
-                LastName = string.Empty,
-                Dni = string.Empty
+                LastName = string.Empty
             };
 
             try
@@ -146,7 +145,6 @@ namespace RealStateApp.Infraestructure.Identity.Services
                 Name = "",
                 UserName = "",
                 HasError = false,
-                Dni = "",
                 IsVerified = true,
                 Errors = []
             };

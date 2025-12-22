@@ -8,7 +8,7 @@
         public required string Name { get; set; }
         public required string UserName { get; set; }
         public bool HasError { get; set; }
-        public  required string Dni { get; set; }
+        public string? Dni { get; set; }
         public bool IsVerified { get; set; }
         public List<string>? Errors { get; set; }
     }
